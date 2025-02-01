@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flood Prediction System</title>
+  <link rel="stylesheet" href="HW.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Flood Prediction System</h1>
+    <p>Enter the water level to determine the flood status:</p>
+    
+    <form id="floodForm">
+      <input type="number" id="waterLevelInput" placeholder="Enter water level (1-10)" min="1" max="10" step="0.1" required>
+      <button type="button" id="submitBtn" onclick="checkFloodStatus()">Submit</button>
+    </form>
+
+    <div id="result" class="result">
+      <!-- Result will appear here -->
+    </div>
+  </div>
+
+  <script>
+    function checkFloodStatus() {
+      // Get the water level value from the input
+      var waterLevel = parseFloat(document.getElementById("waterLevelInput").value);
+      var resultDiv = document.getElementById("result");
+
+      // Check if input is valid
+      if (isNaN(waterLevel) || waterLevel < 1 || waterLevel > 10) {
+          resultDiv.innerHTML = "Please enter a valid water level between 1 and 10.";
+          resultDiv.className = "result";
+          return;
+      }
+
+      // Determine flood status based on water level
+      if (waterLevel >= 1 && waterLevel <= 3) {
+          resultDiv.innerHTML = "No flood risk.";
+          resultDiv.className = "result success";
+      } else if (waterLevel >= 4 && waterLevel <= 7) {
+          resultDiv.innerHTML = "Chance of flood.";
+          resultDiv.className = "result warning";
+      } else if (waterLevel >= 8 && waterLevel <= 9) {
+          resultDiv.innerHTML = "Flood risk present.";
+          resultDiv.className = "result danger";
+      } else if (waterLevel === 10) {
+          resultDiv.innerHTML = "High risk of flood!";
+          resultDiv.className = "result danger";
+      }
+    }
+  </script>
+</body>
+</html>
